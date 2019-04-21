@@ -4,6 +4,7 @@ import com.khaliuk.dao.AuthorDao;
 import com.khaliuk.dao.BookDao;
 import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
+import com.khaliuk.util.SearchCriteria;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> getAll() {
         return authorDao.getAll();
+    }
+
+    @Override
+    public List<Author> getAll(List<SearchCriteria> params) {
+        return authorDao.getAll(params);
     }
 
     @Override

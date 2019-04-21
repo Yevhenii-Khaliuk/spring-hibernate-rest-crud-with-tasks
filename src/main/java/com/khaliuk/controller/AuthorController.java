@@ -3,8 +3,12 @@ package com.khaliuk.controller;
 import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
 import com.khaliuk.service.AuthorService;
+import com.khaliuk.util.SearchCriteria;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -26,8 +31,24 @@ public class AuthorController {
     private AuthorService authorService;
 
     @GetMapping
-    public ResponseEntity<List<Author>> getAll() {
-        List<Author> authors = authorService.getAll();
+    public ResponseEntity<List<Author>> getAll(
+            @RequestParam(value = "search", required = false) String search) {
+
+        List<Author> authors;
+
+        if (search != null) {
+            List<SearchCriteria> params = new ArrayList<>();
+            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+            Matcher matcher = pattern.matcher(search + ",");
+            while (matcher.find()) {
+                params.add(new SearchCriteria(
+                        matcher.group(1), matcher.group(2), matcher.group(3)));
+                }
+            authors = authorService.getAll(params);
+        } else {
+            authors = authorService.getAll();
+        }
+
         ResponseEntity<List<Author>> responseEntity;
         if (authors.isEmpty()) {
             responseEntity = ResponseEntity.notFound().build();

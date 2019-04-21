@@ -2,12 +2,15 @@ package com.khaliuk.service;
 
 import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
+import com.khaliuk.util.SearchCriteria;
 import java.util.List;
 import java.util.Optional;
 
 public interface AuthorService {
 
     List<Author> getAll();
+
+    List<Author> getAll(List<SearchCriteria> params);
 
     Optional<Author> getById(Long id);
 

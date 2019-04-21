@@ -1,7 +1,13 @@
 package com.khaliuk.dao;
 
 import com.khaliuk.model.Author;
+import com.khaliuk.util.AuthorSearchQueryCriteriaConsumer;
+import com.khaliuk.util.SearchCriteria;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +25,21 @@ public class AuthorDaoImpl implements AuthorDao {
         return sessionFactory.getCurrentSession()
                 .createQuery("from Author a", Author.class)
                 .list();
+    }
+
+    @Override
+    public List<Author> getAll(List<SearchCriteria> params) {
+        CriteriaBuilder builder = sessionFactory.getCriteriaBuilder();
+        CriteriaQuery<Author> query = builder.createQuery(Author.class);
+        Root root = query.from(Author.class);
+        Predicate predicate = builder.conjunction();
+        AuthorSearchQueryCriteriaConsumer searchConsumer =
+                new AuthorSearchQueryCriteriaConsumer(predicate, builder, root);
+        params.forEach(searchConsumer);
+        predicate = searchConsumer.getPredicate();
+        query.where(predicate);
+
+        return sessionFactory.getCurrentSession().createQuery(query).list();
     }
 
     @Override
