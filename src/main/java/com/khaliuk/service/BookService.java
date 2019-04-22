@@ -3,6 +3,7 @@ package com.khaliuk.service;
 import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public interface BookService {
@@ -27,4 +28,6 @@ public interface BookService {
     Optional<Book> deleteAuthorFromBook(Long bookId, Long authorId);
 
     List<Book> getBooksWithAuthorsWithMoreThanOneBook();
+
+    Map<String, Long> getGenresWithCalculatedNumbers();
 }

@@ -2,6 +2,7 @@ package com.khaliuk.dao;
 
 import com.khaliuk.model.Book;
 import java.util.List;
+import java.util.Map;
 
 public interface BookDao {
 
@@ -16,4 +17,6 @@ public interface BookDao {
     Book deleteById(Long id);
 
     List<Book> getBooksWithAuthorsWithMoreThanOneBook();
+
+    Map<String, Long> getGenresWithCalculatedNumbers();
 }

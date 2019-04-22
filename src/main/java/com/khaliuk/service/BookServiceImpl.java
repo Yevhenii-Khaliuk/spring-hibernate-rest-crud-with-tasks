@@ -6,6 +6,7 @@ import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +97,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<Book> getBooksWithAuthorsWithMoreThanOneBook() {
         return bookDao.getBooksWithAuthorsWithMoreThanOneBook();
+    }
+
+    @Override
+    public Map<String, Long> getGenresWithCalculatedNumbers() {
+        return bookDao.getGenresWithCalculatedNumbers();
     }
 
     private boolean bookHasAuthorWithId(Book book, Long authorId) {

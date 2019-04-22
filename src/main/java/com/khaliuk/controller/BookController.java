@@ -5,6 +5,7 @@ import com.khaliuk.model.Book;
 import com.khaliuk.service.BookService;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -123,5 +124,10 @@ public class BookController {
             responseEntity = ResponseEntity.ok(books);
         }
         return responseEntity;
+    }
+
+    @GetMapping(value = "/genres-numbers")
+    public ResponseEntity<Map<String, Long>> getGenresWithCalculatedNumbers() {
+        return ResponseEntity.ok(bookService.getGenresWithCalculatedNumbers());
     }
 }
