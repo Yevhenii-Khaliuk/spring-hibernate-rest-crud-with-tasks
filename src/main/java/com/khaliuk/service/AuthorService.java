@@ -24,4 +24,6 @@ public interface AuthorService {
     Optional<Author> addBookToAuthor(Long authorId, Long bookId);
 
     Optional<Book> getBookByIdFromAuthor(Long authorId, Long bookId);
+
+    List<Author> getAllWithAgeSortedByBorn(Long years);
 }

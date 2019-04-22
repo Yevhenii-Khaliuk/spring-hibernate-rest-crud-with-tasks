@@ -1,6 +1,7 @@
 package com.khaliuk.dao;
 
 import com.khaliuk.model.Author;
+import java.time.LocalDate;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.hibernate.SessionFactory;
@@ -47,5 +48,15 @@ public class AuthorDaoImpl implements AuthorDao {
         Author author = getById(id);
         sessionFactory.getCurrentSession().delete(author);
         return author;
+    }
+
+    @Override
+    public List<Author> getAllWithAgeSortedByBorn(Long years) {
+        LocalDate maxBorn = LocalDate.now().minusYears(years);
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Author a where a.born < :maxBorn order by a.born",
+                        Author.class)
+                .setParameter("maxBorn", maxBorn)
+                .list();
     }
 }

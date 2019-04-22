@@ -14,4 +14,6 @@ public interface AuthorDao {
     Author update(Author author);
 
     Author deleteById(Long id);
+
+    List<Author> getAllWithAgeSortedByBorn(Long years);
 }

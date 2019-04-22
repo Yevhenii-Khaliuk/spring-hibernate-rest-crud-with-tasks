@@ -37,6 +37,18 @@ public class AuthorController {
         return responseEntity;
     }
 
+    @GetMapping(value = "/min-age/{years}/sorted-by-born")
+    public ResponseEntity<List<Author>> getAll(@PathVariable Long years) {
+        List<Author> authors = authorService.getAllWithAgeSortedByBorn(years);
+        ResponseEntity<List<Author>> responseEntity;
+        if (authors.isEmpty()) {
+            responseEntity = ResponseEntity.notFound().build();
+        } else {
+            responseEntity = ResponseEntity.ok(authors);
+        }
+        return responseEntity;
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Author> getById(@PathVariable Long id) {
         return authorService.getById(id)
