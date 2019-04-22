@@ -14,4 +14,6 @@ public interface BookDao {
     Book update(Book book);
 
     Book deleteById(Long id);
+
+    List<Book> getBooksWithAuthorsWithMoreThanOneBook();
 }

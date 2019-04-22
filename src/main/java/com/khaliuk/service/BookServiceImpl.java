@@ -93,6 +93,11 @@ public class BookServiceImpl implements BookService {
         return Optional.ofNullable(book);
     }
 
+    @Override
+    public List<Book> getBooksWithAuthorsWithMoreThanOneBook() {
+        return bookDao.getBooksWithAuthorsWithMoreThanOneBook();
+    }
+
     private boolean bookHasAuthorWithId(Book book, Long authorId) {
         return book.getAuthors().stream()
                 .anyMatch(author -> author.getId().equals(authorId));

@@ -48,4 +48,11 @@ public class BookDaoImpl implements BookDao {
         sessionFactory.getCurrentSession().delete(book);
         return book;
     }
+
+    @Override
+    public List<Book> getBooksWithAuthorsWithMoreThanOneBook() {
+        return sessionFactory.getCurrentSession().createQuery(
+                "from Book b inner join fetch b.authors a where size(a.books) >= 2",
+                Book.class).list();
+    }
 }

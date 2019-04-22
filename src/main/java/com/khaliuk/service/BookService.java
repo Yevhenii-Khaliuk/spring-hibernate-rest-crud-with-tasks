@@ -25,4 +25,6 @@ public interface BookService {
     Optional<Book> addAuthorToBook(Long bookId, Long authorId);
 
     Optional<Book> deleteAuthorFromBook(Long bookId, Long authorId);
+
+    List<Book> getBooksWithAuthorsWithMoreThanOneBook();
 }

@@ -112,4 +112,16 @@ public class BookController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping(value = "/with-authors-who-have-more-than-one-book")
+    public ResponseEntity<List<Book>> getBooksWithAuthorsWithMoreThanOneBook() {
+        List<Book> books = bookService.getBooksWithAuthorsWithMoreThanOneBook();
+        ResponseEntity<List<Book>> responseEntity;
+        if (books.isEmpty()) {
+            responseEntity = ResponseEntity.notFound().build();
+        } else {
+            responseEntity = ResponseEntity.ok(books);
+        }
+        return responseEntity;
+    }
 }
