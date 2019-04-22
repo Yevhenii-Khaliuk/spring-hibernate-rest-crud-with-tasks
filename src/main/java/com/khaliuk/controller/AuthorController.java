@@ -123,4 +123,11 @@ public class AuthorController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping(value = "/max-books")
+    public ResponseEntity<Author> getAuthorWithMaxBooks() {
+        return authorService.getAuthorWithMaxBooks()
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

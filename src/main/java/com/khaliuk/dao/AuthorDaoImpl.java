@@ -59,4 +59,12 @@ public class AuthorDaoImpl implements AuthorDao {
                 .setParameter("maxBorn", maxBorn)
                 .list();
     }
+
+    @Override
+    public Author getAuthorWithMaxBooks() {
+        return sessionFactory.getCurrentSession().createQuery(
+                "from Author a inner join fetch a.books where a.books.size = " +
+                        "(select max(a.books.size) from Author a inner join a.books)",
+                Author.class).uniqueResult();
+    }
 }

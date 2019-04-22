@@ -16,4 +16,6 @@ public interface AuthorDao {
     Author deleteById(Long id);
 
     List<Author> getAllWithAgeSortedByBorn(Long years);
+
+    Author getAuthorWithMaxBooks();
 }

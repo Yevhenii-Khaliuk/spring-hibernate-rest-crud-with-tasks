@@ -4,11 +4,9 @@ import com.khaliuk.dao.AuthorDao;
 import com.khaliuk.dao.BookDao;
 import com.khaliuk.model.Author;
 import com.khaliuk.model.Book;
-import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -98,6 +96,11 @@ public class AuthorServiceImpl implements AuthorService {
     @Override
     public List<Author> getAllWithAgeSortedByBorn(Long years) {
         return authorDao.getAllWithAgeSortedByBorn(years);
+    }
+
+    @Override
+    public Optional<Author> getAuthorWithMaxBooks() {
+        return Optional.ofNullable(authorDao.getAuthorWithMaxBooks());
     }
 
     private boolean authorHasBookWithId(Author author, Long bookId) {
